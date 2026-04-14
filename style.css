@@ -1,0 +1,177 @@
+/* resetando tudo primeiro */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 16px;
+      color: #1a1a1a;
+    }
+
+    header {
+      background-color: #1b5e35;
+      color: white;
+      text-align: center;
+      padding: 18px 12px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    header p {
+      font-size: 0.82rem;
+      opacity: 0.75;
+    }
+
+    .legenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 0.78rem;
+      color: #444;
+    }
+
+    .legenda-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .quadradinho {
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+    }
+
+    .tabela-wrapper {
+      overflow-x: auto;
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      min-width: 360px;
+    }
+
+    thead tr {
+      background-color: #1b5e35;
+      color: white;
+    }
+
+    thead th {
+      padding: 10px 8px;
+      font-size: 0.75rem;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+    }
+
+    thead th.col-time {
+      text-align: left;
+      padding-left: 10px;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #ebebeb;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    tbody td {
+      padding: 9px 8px;
+      text-align: center;
+      font-size: 0.83rem;
+    }
+
+    td.pos {
+      font-weight: bold;
+      font-size: 0.88rem;
+      width: 28px;
+      color: #333;
+    }
+
+    td.col-time {
+      text-align: left;
+    }
+
+    .time-linha {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .tag-time {
+      width: 8px;
+      height: 28px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .nome-time {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    td.pts {
+      font-weight: bold;
+      color: #1b5e35;
+      font-size: 0.92rem;
+    }
+
+    .desemp {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bolinha {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .v { background-color: #27ae60; }
+    .e { background-color: #aaaaaa; }
+    .d { background-color: #e74c3c; }
+
+    tr.libertadores { border-left: 4px solid #2980b9; }
+    tr.sulamericana  { border-left: 4px solid #e67e22; }
+    tr.neutro        { border-left: 4px solid transparent; }
+    tr.rebaixamento  { border-left: 4px solid #e74c3c; }
+
+    @media (max-width: 460px) {
+      .col-e, .col-d, .col-desemp {
+        display: none;
+      }
+      header h1 {
+        font-size: 1.2rem;
+      }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.74rem;
+      color: #999;
+    }

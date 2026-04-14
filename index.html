@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabela do Brasileirao</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Tabela do Brasileirao</h1>
+    <p>Serie A - Classificacao parcial (11 rodadas)</p>
+  </header>
+
+  <div class="legenda">
+    <div class="legenda-item">
+      <div class="quadradinho" style="background:#2980b9"></div>
+      <span>Libertadores (G6)</span>
+    </div>
+    <div class="legenda-item">
+      <div class="quadradinho" style="background:#e67e22"></div>
+      <span>Sul-Americana</span>
+    </div>
+    <div class="legenda-item">
+      <div class="quadradinho" style="background:#e74c3c"></div>
+      <span>Rebaixamento (Z4)</span>
+    </div>
+  </div>
+
+  <div class="tabela-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th class="col-time">Equipe</th>
+          <th>J</th>
+          <th>V</th>
+          <th class="col-e">E</th>
+          <th class="col-d">D</th>
+          <th>Pts</th>
+          <th class="col-desemp">Desemp.</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-body">
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>Dados: Brasileirao Serie A 2025 &middot; Projeto PAM - 2 ano</p>
+  </footer>
+
+  <script>
+    // dados retirados da tabela blablabla
+    const times = [
+      { pos: 1,  nome: "Palmeiras",          j: 11, v: 8, e: 2, d: 1, pts: 26, desemp: "VVVVVE", cor: "#006437" },
+      { pos: 2,  nome: "Flamengo",            j: 10, v: 6, e: 2, d: 2, pts: 20, desemp: "VVDVEV", cor: "#cc0000" },
+      { pos: 3,  nome: "Sao Paulo",           j: 11, v: 6, e: 2, d: 3, pts: 20, desemp: "DVDVEV", cor: "#cc0000" },
+      { pos: 4,  nome: "Fluminense",          j: 11, v: 6, e: 2, d: 3, pts: 20, desemp: "DVVDEV", cor: "#85201e" },
+      { pos: 5,  nome: "Bahia",               j: 10, v: 6, e: 2, d: 2, pts: 20, desemp: "VVDVEV", cor: "#003da5" },
+      { pos: 6,  nome: "Atletico Paranaense", j: 11, v: 6, e: 1, d: 4, pts: 19, desemp: "VVDDEV", cor: "#cc0000" },
+      { pos: 7,  nome: "Coritiba",            j: 11, v: 4, e: 4, d: 3, pts: 16, desemp: "VVVEDV", cor: "#006a31" },
+      { pos: 8,  nome: "Atletico-MG",         j: 11, v: 4, e: 2, d: 5, pts: 14, desemp: "VVDVED", cor: "#000000" },
+      { pos: 9,  nome: "RB Bragantino",       j: 11, v: 4, e: 2, d: 5, pts: 14, desemp: "DDVVDV", cor: "#cc0000" },
+      { pos: 10, nome: "Vitoria",             j: 10, v: 4, e: 2, d: 4, pts: 14, desemp: "DVDVEV", cor: "#cc0000" },
+      { pos: 11, nome: "Botafogo",            j: 10, v: 4, e: 1, d: 5, pts: 13, desemp: "VVDVED", cor: "#000000" },
+      { pos: 12, nome: "Gremio",              j: 11, v: 3, e: 4, d: 4, pts: 13, desemp: "VVDVEE", cor: "#0c4a9e" },
+      { pos: 13, nome: "Vasco DA Gama",       j: 11, v: 3, e: 4, d: 4, pts: 13, desemp: "VVDVEE", cor: "#000000" },
+      { pos: 14, nome: "Internacional",       j: 11, v: 3, e: 4, d: 4, pts: 13, desemp: "VVDVEE", cor: "#cc0000" },
+      { pos: 15, nome: "Santos",              j: 11, v: 3, e: 4, d: 4, pts: 13, desemp: "DVVVED", cor: "#000000" },
+      { pos: 16, nome: "Corinthians",         j: 11, v: 2, e: 5, d: 4, pts: 11, desemp: "EEVDEE", cor: "#000000" },
+      { pos: 17, nome: "Cruzeiro",            j: 11, v: 2, e: 4, d: 5, pts: 10, desemp: "DDVVDE", cor: "#002776" },
+      { pos: 18, nome: "Remo",                j: 11, v: 1, e: 5, d: 5, pts:  8, desemp: "DDDVEE", cor: "#003399" },
+      { pos: 19, nome: "Chapecoense-SC",      j: 10, v: 1, e: 5, d: 4, pts:  8, desemp: "EDDDED", cor: "#2e7d32" },
+      { pos: 20, nome: "Mirassol",            j: 10, v: 1, e: 3, d: 6, pts:  6, desemp: "DDDVDD", cor: "#cc9900" },
+    ];
+
+    function zona(pos) {
+      if (pos <= 6)  return "libertadores";
+      if (pos <= 12) return "sulamericana";
+      if (pos >= 17) return "rebaixamento";
+      return "neutro";
+    }
+
+    // monta as bolinhas: V=verde, E=cinza, D=vermelho
+    function montarDesemp(str) {
+      return str.split("").map(letra => {
+        let cls = letra === "V" ? "v" : letra === "E" ? "e" : "d";
+        return `<div class="bolinha ${cls}"></div>`;
+      }).join("");
+    }
+
+    const tbody = document.getElementById("tabela-body");
+
+    times.forEach(t => {
+      const tr = document.createElement("tr");
+      tr.className = zona(t.pos);
+
+      tr.innerHTML = `
+        <td class="pos">${t.pos}</td>
+        <td class="col-time">
+          <div class="time-linha">
+            <div class="tag-time" style="background:${t.cor}"></div>
+            <span class="nome-time">${t.nome}</span>
+          </div>
+        </td>
+        <td>${t.j}</td>
+        <td>${t.v}</td>
+        <td class="col-e">${t.e}</td>
+        <td class="col-d">${t.d}</td>
+        <td class="pts">${t.pts}</td>
+        <td class="col-desemp">
+          <div class="desemp">${montarDesemp(t.desemp)}</div>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+  </script>
+
+  <!--
+                                 ##              ##
+                                 ####          ####
+   ####                          ##################
+  ##########                      ##################
+   ##########                    ####  ######  ####
+       ######                    ####    ####    ##
+         ######                  ##################      ##    ##  ######  ##     ##   #######  ##
+         ######        ########    ################      ##    ##  ##      ####   ##   ##   ##  ##
+         ######    ############    ##############        ## ## ##  #####   ## ##  ##   #######  ##
+         ######  ################      ########          ##    ##  ##      ##  ## ##   ##  ##   ##
+         ##########################                      ##    ##  ######  ##   ####   ##   ##  ##
+         ############################
+         ####################################
+         ####################################
+         ####################################
+         ############################  ######
+         ########################      ######
+         ######################        ######
+         ####################          ######
+         ######################        ######
+         ########################      ######
+           ######################      ######
+  -->
+
+</body>
+</html>
